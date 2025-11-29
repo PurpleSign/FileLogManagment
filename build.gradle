@@ -2,7 +2,20 @@ plugins {
    id 'java-library'
 }
 
+group = "org.filelogmanagment"
 version = '0.1'
+
+/*publishing {
+	publications {
+		create<MavenPublication>("maven") {
+    		groupId = "org.filelogmanagment"
+        	artifactId = "FileLogManagment"
+        	version = "1.0"
+
+         	from(components["java"])
+    	}
+    }
+}*/
 
 repositories {
 	gradlePluginPortal()
