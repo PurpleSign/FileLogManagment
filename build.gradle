@@ -1,8 +1,9 @@
 plugins {
    id 'java-library'
+   id 'maven-publish'
 }
 
-group = "org.filelogmanagment"
+//group = "org.filelogmanagment"
 version = '0.1'
 
 /*publishing {
