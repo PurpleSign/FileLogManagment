@@ -4,6 +4,6 @@
 /**
  * 
  */
-module main {
+module filelogmanagment {
 	requires com.fasterxml.jackson.databind;
 }
