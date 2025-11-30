@@ -9,9 +9,9 @@ version = '0.1'
 publishing {
 	publications {
 		maven(MavenPublication) {
-            groupId = '$group'
+            groupId = 'org.filelogmanagment'
             artifactId = 'filelogmanagment'
-            version = '$version'
+            version = '0.1'
 
             from components.java
         }
