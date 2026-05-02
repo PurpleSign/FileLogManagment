@@ -1,4 +1,4 @@
-/** FileLogManagment v0.1	Dh	02.09.2024
+/** FileLogManagment v0.11	Dh	02.05.2026
  *  
  *  FileManager
 */
@@ -65,7 +65,7 @@ public abstract class FileManager {
 	
 	//----------------------------------------------------------------------------------------------------
 	
-	/**	Dh	02.09.2024
+	/**	Dh	02.05.2026
 	 * 
 	 * @return
 	 * @throws WrongOSException
@@ -81,7 +81,7 @@ public abstract class FileManager {
 		if (vOS.contains("Windows")) vHome = vHome+ "/AppData/Roaming"+appPath;
 		else if (vOS.contains("Linux")) {
 			if (!vArch.contains("aarch64")) vHome = vHome+"/.local"+appPath;
-			
+			else vHome = vHome+appPath;
 		} else throw new WrongOSException("gFS,FiM", vHome, vOS); 
 		
 		vHomeFile = new File(vHome);
