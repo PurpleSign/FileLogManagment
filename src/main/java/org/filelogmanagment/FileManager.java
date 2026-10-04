@@ -59,7 +59,7 @@ public abstract class FileManager {
 		
 		settingDirectory = new File(systemFile.getAbsolutePath() + settingPath);
 		if (System.getProperty("os.name").contains("Linux") && System.getProperty("os.arch").contains("aarch64")) {
-			  logDirectory     = new File(systemFile.getAbsolutePath() + "/storage/emulated/0/Android/obb/"+appPath);
+			  logDirectory     = new File("/storage/emulated/0/Android/obb"+appPath+logPath);
 		}else logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
 		
 		initSettingPaths();
@@ -87,17 +87,17 @@ public abstract class FileManager {
 		} else throw new WrongOSException("gFS,FiM", vHome, vOS); 
 		
 		vHomeFile = new File(vHome);
-		proofFileSystem(vOS, vHomeFile);
+		proofFileSystem(vOS, vArch, vHomeFile);
 		
 		return vHomeFile;
 	}
-	/**	Dh	02.09.2024
+	/**	Dh	04.10.2026
 	 * 
 	 * @param vOS
 	 * @param vHomeFile
 	 * @throws WrongOSException
 	 */
-	private void proofFileSystem(String pOS, File pHomeFile) throws WrongOSException {
+	private void proofFileSystem(String pOS, String pArch, File pHomeFile) throws WrongOSException {
 		File vTemp;
 		
 		ArrayList<String> vDirectoryPaths = new ArrayList<String>(Arrays.asList( settingPath, logPath));
@@ -106,7 +106,9 @@ public abstract class FileManager {
 			if (!pHomeFile.exists()) pHomeFile.mkdir();
 			
 			for (String vDirectoryPath : vDirectoryPaths) {
-				vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
+				if ((vDirectoryPath != logPath) || !pOS.contains("Linux") || !pArch.contains("aarch64")){
+					vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
+				}else vTemp = new File("/storage/emulated/0/Android/obb"+appPath+ vDirectoryPath);
 				
 				if (!vTemp.exists()) vTemp.mkdir();
 			}
