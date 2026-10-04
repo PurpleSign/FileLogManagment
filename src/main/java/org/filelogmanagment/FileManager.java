@@ -1,4 +1,4 @@
-/** FileLogManagment v0.11	Dh	02.05.2026
+/** FileLogManagment v0.11	Dh	04.10.2026
  *  
  *  FileManager
 */
@@ -50,7 +50,7 @@ public abstract class FileManager {
 		appSettingPath = settingDirectory.getAbsolutePath() + "/Settings.xml";
 	}
 	
-	/**	Dh	02.09.2024
+	/**	Dh	04.10.2024
 	 * 
 	 * @throws WrongOSException
 	 */
@@ -58,7 +58,9 @@ public abstract class FileManager {
 		systemFile = getFileSystem();
 		
 		settingDirectory = new File(systemFile.getAbsolutePath() + settingPath);
-		logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
+		if (System.getProperty("os.name").contains("Linux") && System.getProperty("os.arch").contains("aarch64")) {
+			  logDirectory     = new File(systemFile.getAbsolutePath() + "/storage/emulated/0/Android/obb/"+appPath);
+		}else logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
 		
 		initSettingPaths();
 	}
