@@ -1,4 +1,4 @@
-/** FileLogManagment v0.11	Dh	04.10.2026
+/** FileLogManagment v0.11	Dh	05.10.2026
  *  
  *  FileManager
 */
@@ -25,6 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public abstract class FileManager {
+	protected String ANDROID_LOG_DIRECTORY_PATH = "/storage/emulated/0/DCIM";
+	
 	protected String appPath;
 	protected String settingPath = "/settings",
 					 logPath     = "/logs";
@@ -50,7 +52,7 @@ public abstract class FileManager {
 		appSettingPath = settingDirectory.getAbsolutePath() + "/Settings.xml";
 	}
 	
-	/**	Dh	04.10.2024
+	/**	Dh	05.10.2024
 	 * 
 	 * @throws WrongOSException
 	 */
@@ -59,7 +61,7 @@ public abstract class FileManager {
 		
 		settingDirectory = new File(systemFile.getAbsolutePath() + settingPath);
 		if (System.getProperty("os.name").contains("Linux") && System.getProperty("os.arch").contains("aarch64")) {
-			  logDirectory     = new File("/storage/emulated/0/Android/obb"+appPath+logPath);
+			  logDirectory     = new File(ANDROID_LOG_DIRECTORY_PATH+appPath+logPath);
 		}else logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
 		
 		initSettingPaths();
@@ -91,10 +93,11 @@ public abstract class FileManager {
 		
 		return vHomeFile;
 	}
-	/**	Dh	04.10.2026
+	/**	Dh	05.10.2026
 	 * 
-	 * @param vOS
-	 * @param vHomeFile
+	 * @param pOS
+	 * @param pArch
+	 * @param pHomeFile
 	 * @throws WrongOSException
 	 */
 	private void proofFileSystem(String pOS, String pArch, File pHomeFile) throws WrongOSException {
@@ -107,8 +110,8 @@ public abstract class FileManager {
 			
 			for (String vDirectoryPath : vDirectoryPaths) {
 				if ((vDirectoryPath != logPath) || !pOS.contains("Linux") || !pArch.contains("aarch64")){
-					vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
-				}else vTemp = new File("/storage/emulated/0/Android/obb"+appPath+ vDirectoryPath);
+					  vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
+				}else vTemp = new File(ANDROID_LOG_DIRECTORY_PATH+appPath+ vDirectoryPath);
 				
 				if (!vTemp.exists()) vTemp.mkdir();
 			}
