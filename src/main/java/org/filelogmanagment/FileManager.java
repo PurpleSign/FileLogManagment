@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public abstract class FileManager {
-	protected String ANDROID_LOG_DIRECTORY_PATH = "/storage/emulated/0/DCIM";
+	protected String ANDROID_LOG_DIRECTORY_PATH = "/storage/emulated/0/Documents";
 	
 	protected String appPath;
 	protected String settingPath = "/settings",
