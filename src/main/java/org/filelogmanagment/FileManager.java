@@ -52,7 +52,7 @@ public abstract class FileManager {
 		appSettingPath = settingDirectory.getAbsolutePath() + "/Settings.xml";
 	}
 	
-	/**	Dh	05.10.2024
+	/**	Dh	05.10.2026
 	 * 
 	 * @throws WrongOSException
 	 */
@@ -60,11 +60,11 @@ public abstract class FileManager {
 		systemFile = getFileSystem();
 		
 		settingDirectory = new File(systemFile.getAbsolutePath() + settingPath);
-		if (System.getProperty("os.name").contains("Linux") && System.getProperty("os.arch").contains("aarch64")) {
+		//if (System.getProperty("os.name").contains("Linux") && System.getProperty("os.arch").contains("aarch64")) {
 				System.out.println( "[LOG]:"+ANDROID_LOG_DIRECTORY_PATH+appPath+logPath );
 				//logDirectory     = new File(ANDROID_LOG_DIRECTORY_PATH+appPath+logPath);
 				logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
-		}else logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
+		//}else logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
 		
 		initSettingPaths();
 	}
@@ -111,13 +111,13 @@ public abstract class FileManager {
 			if (!pHomeFile.exists()) pHomeFile.mkdir();
 			
 			for (String vDirectoryPath : vDirectoryPaths) {
-				if ((vDirectoryPath != logPath) || !pOS.contains("Linux") || !pArch.contains("aarch64")){
+				//if ((vDirectoryPath != logPath) || !pOS.contains("Linux") || !pArch.contains("aarch64")){
 					  vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
-				}else {
+				//}else {
 					System.out.println( "[LOG]:"+ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
 					//vTemp = new File( ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
-					vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
-				}
+				//	vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
+				//}
 				
 				if (!vTemp.exists()) vTemp.mkdir();
 			}
