@@ -61,7 +61,7 @@ public abstract class FileManager {
 		
 		settingDirectory = new File(systemFile.getAbsolutePath() + settingPath);
 		if (System.getProperty("os.name").contains("Linux") && System.getProperty("os.arch").contains("aarch64")) {
-				System.out.print( "[LOG]:"+ANDROID_LOG_DIRECTORY_PATH+appPath+logPath );
+				System.out.println( "[LOG]:"+ANDROID_LOG_DIRECTORY_PATH+appPath+logPath );
 				//logDirectory     = new File(ANDROID_LOG_DIRECTORY_PATH+appPath+logPath);
 				logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
 		}else logDirectory     = new File(systemFile.getAbsolutePath() + logPath);
@@ -114,7 +114,7 @@ public abstract class FileManager {
 				if ((vDirectoryPath != logPath) || !pOS.contains("Linux") || !pArch.contains("aarch64")){
 					  vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
 				}else {
-					System.out.print( "[LOG]:"+ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
+					System.out.println( "[LOG]:"+ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
 					//vTemp = new File( ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
 					vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
 				}
