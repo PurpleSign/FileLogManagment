@@ -1,4 +1,4 @@
-/** FileLogManagment v0.11	Dh	05.10.2026
+/** FileLogManagment v0.11	Dh	06.10.2026
  *  
  *  FileManager
 */
@@ -95,7 +95,7 @@ public abstract class FileManager {
 		
 		return vHomeFile;
 	}
-	/**	Dh	05.10.2026
+	/**	Dh	06.10.2026
 	 * 
 	 * @param pOS
 	 * @param pArch
@@ -111,15 +111,16 @@ public abstract class FileManager {
 			if (!pHomeFile.exists()) pHomeFile.mkdir();
 			
 			for (String vDirectoryPath : vDirectoryPaths) {
-				//if ((vDirectoryPath != logPath) || !pOS.contains("Linux") || !pArch.contains("aarch64")){
+				if ((vDirectoryPath != logPath) || !pOS.contains("Linux") || !pArch.contains("aarch64")){
 					  vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
-				//}else {
-					System.out.println( "[LOG]:"+ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
-					//vTemp = new File( ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
+				}else {
+					System.out.println( "[Log]:"+ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
+					vTemp = new File( ANDROID_LOG_DIRECTORY_PATH + appPath + vDirectoryPath );
 				//	vTemp = new File(pHomeFile.getAbsolutePath() + vDirectoryPath);
-				//}
+				}
 				
 				if (!vTemp.exists()) vTemp.mkdir();
+				if (!vTemp.exists()) System.out.println("[Log]: Log Dir not created");
 			}
 		} else throw new WrongOSException("mFS,FiM", "", pOS); 
 	}
