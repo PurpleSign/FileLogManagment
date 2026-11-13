@@ -1,4 +1,4 @@
-/** FileLogManagment v0.11	Dh	06.10.2026
+/** FileLogManagment v0.12	Dh	13.11.2026
  *  
  *  FileManager
 */
@@ -9,6 +9,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -198,6 +201,35 @@ public abstract class FileManager {
 			} else throw new WrongValueException("sOaXML,FiM");
 		} else throw new NullpointerException("sOaXML,FiM");
 	}
+	/**	Dh	13.11.2026
+	 * 
+	 * @param <T>
+	 * @param pOutputStream
+	 * @param pObject
+	 * @throws NullpointerException
+	 * @throws WrongValueException
+	 * @throws IOException
+	 */
+	protected <T extends Object> void saveObjectAsXML(OutputStream pOutputStream, T pObject) throws NullpointerException, WrongValueException, IOException{
+		String vXMLText;
+		OutputStreamWriter vOutputStream;
+		ObjectMapper vObjectMapper;
+		
+		if (pObject != null) {
+			if (pOutputStream != null) {
+				LogManager.createLogEntry("Start saving File to: ");
+				vOutputStream = new OutputStreamWriter(pOutputStream, Charset.forName("UTF-8"));
+				
+				vObjectMapper = new XmlMapper();
+				
+				vXMLText = vObjectMapper.writeValueAsString(pObject);
+				vOutputStream.write(vXMLText);
+				
+				LogManager.createLogEntry("Object saved.");
+			} else throw new WrongValueException("sOaXML,FiM");
+		} else throw new NullpointerException("sOaXML,FiM");
+	}
+	
 	/**	Dh	02.09.2024
 	 * 
 	 * @param pFilePath
@@ -226,6 +258,34 @@ public abstract class FileManager {
 			
 			LogManager.createLogEntry("Loading File finished");
 		} else throw new NoFileLoadedException("lOfXML,FiM", "", new FileNotExistingException("lOfXML,FiM", "", vFile.getAbsolutePath()));
+		
+		return vRet;
+	}
+	/**	Dh	13.11.2026
+	 * 
+	 * @param <T>
+	 * @param pInputStream
+	 * @param pClass
+	 * @return
+	 * @throws NoFileLoadedException
+	 * @throws IOException
+	 */
+	protected <T extends Object> T loadObjectFromXML(InputStream pInputStream, Class<T> pClass) throws NoFileLoadedException, IOException {
+		T vRet = null;
+		ObjectMapper vObjectMapper;
+		
+		if (pInputStream.available() > 0) {
+			LogManager.createLogEntry("Start Loading File: ");
+			
+			vObjectMapper = new XmlMapper();
+			
+			try {
+				vRet = vObjectMapper.readValue(pInputStream, pClass);
+			}catch(Exception ex) {throw new NoFileLoadedException("lOfXMFFiM", ex.getMessage());} 
+			if (vRet == null) throw new NoFileLoadedException("lOfXML,FiM", "", new NullpointerException("lOfXML,FiM"));
+			
+			LogManager.createLogEntry("Loading File finished");
+		} else throw new NoFileLoadedException("lOfXML,FiM", "", new FileNotExistingException("lOfXML,FiM", "", ""));
 		
 		return vRet;
 	}
