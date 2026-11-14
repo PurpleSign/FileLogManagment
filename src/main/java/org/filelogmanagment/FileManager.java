@@ -210,7 +210,7 @@ public abstract class FileManager {
 	 * @throws WrongValueException
 	 * @throws IOException
 	 */
-	protected <T extends Object> void saveObjectAsOutputStreamXML(OutputStream pOutputStream, T pObject) throws NullpointerException, WrongValueException, IOException{
+	protected <T extends Object> void saveObjectAsXML(OutputStream pOutputStream, T pObject) throws NullpointerException, WrongValueException, IOException{
 		String vXMLText;
 		OutputStreamWriter vOutputStream;
 		ObjectMapper vObjectMapper;
@@ -270,7 +270,7 @@ public abstract class FileManager {
 	 * @throws NoFileLoadedException
 	 * @throws IOException
 	 */
-	protected <T extends Object> T loadObjectFromInputStreamXML(InputStream pInputStream, Class<T> pClass) throws NoFileLoadedException, IOException {
+	protected <T extends Object> T loadObjectFromXML(InputStream pInputStream, Class<T> pClass) throws NoFileLoadedException, IOException {
 		T vRet = null;
 		ObjectMapper vObjectMapper;
 		
